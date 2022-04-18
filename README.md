@@ -23,11 +23,11 @@ Things you may want to cover:
 
     * Objects:
         * User (admin, customer)
-        * TestCategory
+        * Category
         * Test
         * Question
         * Answer
-        * TestAnswers
+        * TestState
     * Functions
         * Authentification
         * Passing the test
