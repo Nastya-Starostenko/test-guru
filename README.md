@@ -21,4 +21,19 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+    * Objects:
+        * User (admin, customer)
+        * TestCategory
+        * Test
+        * Question
+        * Answer
+        * TestAnswers
+    * Functions
+        * Authentification
+        * Passing the test
+        * Creation the test
+        * Managing the test
+        * Passing the test
+        * See list of tests
+        * See passed tests
+        * Share results in social networks
