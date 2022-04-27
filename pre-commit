@@ -1,0 +1,119 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+# Installation example:
+# cp .git/hooks/pre-commit .git/hooks/pre-commit.back$(date +%Y%m%d%H%M%S) # backup your old pre-commit if you have
+# ln -s $(pwd)/pre-commit $(pwd)/.git/hooks/pre-commit && chmod +x pre-commit
+
+# Run rubocop against the files being committed, fixing what we can.  Fixed offenses won't wind up
+# in the commit, though, so abort if we find any offenses.
+#
+# Offenses in unstaged changes will currently abort the commit, but could be avoided by comparing
+# the line number of the offense to those of the staged changes.
+
+require 'json'
+require 'open3'
+require 'pathname'
+
+class GitStatusLine
+  STATUSES = {
+    'A' => :added,
+    'B' => :pairing_broken,
+    'C' => :copied,
+    'D' => :deleted,
+    'M' => :modified,
+    'R' => :renamed,
+    'T' => :type_changed,
+    'U' => :unmerged,
+    'X' => :unknown
+  }.freeze
+
+  STATUS_LINE_REGEX = /^[#{STATUSES.keys.join('|')}]\s+/.freeze
+
+  def self.status_line?(line)
+    line =~ STATUS_LINE_REGEX
+  end
+
+  def self.from(line)
+    return nil unless status_line?(line)
+
+    new(line.chomp)
+  end
+
+  attr_reader :status
+
+  def initialize(line)
+    @line = line
+    @status = STATUSES[@line[0]]
+  end
+
+  def pathname
+    GitStatusPathname.new(@line.gsub(STATUS_LINE_REGEX, ''))
+  end
+
+  def added?
+    status == :added
+  end
+
+  def modified?
+    status == :modified
+  end
+end
+
+class GitStatusPathname
+  def initialize(filename)
+    @path = Pathname.new(filename)
+  end
+
+  def to_s
+    @path.to_s
+  end
+end
+
+class GitDiff
+  def self.status_lines
+    cmd = 'git diff --name-status'
+    cmd = ENV.key?('GITHUB_COMMIT') ? "#{cmd} #{ENV['GITHUB_COMMIT']}" : "#{cmd} --cached"
+    output, _err, _status = Open3.capture3(cmd)
+    output.lines.map { |l| GitStatusLine.from(l) }.compact
+  end
+end
+
+def changed_files
+  GitDiff.status_lines
+         .select { |f| f.added? || f.modified? }
+         .map(&:pathname)
+end
+
+file_list = changed_files.join(' ')
+if file_list == ''
+  puts 'No files to check.'
+  exit(0)
+end
+
+puts "Running rubocop against #{file_list}"
+output, err, _status =
+  Open3.capture3("bundle exec rubocop --format json --force-exclusion --display-cop-names #{file_list}")
+
+unless err.empty?
+  puts 'Error executing Rubocop.'
+  puts err
+  exit(1)
+end
+
+json = JSON.parse(output)
+
+offenses = json['summary']['offense_count']
+exit(0) if offenses.zero?
+
+puts "Rubocop found #{offenses} offense#{'s' if offenses > 1}.  Aborting commit."
+json['files'].each do |file|
+  path = file['path']
+  file['offenses'].each do |offense|
+    line = offense['location']['line']
+    message = offense['message']
+    puts "#{path}:#{line} #{message}"
+  end
+end
+
+exit(1)

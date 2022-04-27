@@ -1,1 +1,224 @@
-inherit_from: .rubocop_todo.yml
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-faker
+
+AllCops:
+  TargetRubyVersion: 2.7.1
+  Exclude:
+    - 'db/schema.rb'
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+Layout/HashAlignment:
+  EnforcedHashRocketStyle:
+    - key
+    - table
+  EnforcedColonStyle:
+    - key
+    - table
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'config/routes.rb'
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+Lint/DuplicateElsifCondition:
+  Enabled: true
+
+Lint/DuplicateRescueException:
+  Enabled: true
+
+Lint/EmptyConditionalBody:
+  Enabled: true
+
+Lint/FloatComparison:
+  Enabled: true
+
+Lint/MissingSuper:
+  Enabled: false
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+Lint/OutOfRangeRegexpRef:
+  Enabled: true
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/SelfAssignment:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Lint/TopLevelReturnWithArgument:
+  Enabled: true
+
+Lint/UnreachableLoop:
+  Enabled: true
+
+Metrics/AbcSize:
+  Max: 40
+  Exclude:
+    - 'lib/tasks/releases/**/*.rake'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+    - 'lib/tasks/releases/**/*.rake'
+    - 'config/routes/api*.rb'
+    - 'config/routes.rb'
+    - 'config/environments/*.rb'
+    - 'app/admin/**/*.rb'
+    - 'app/views/mppteamaa/**/*.arb'
+
+Metrics/ClassLength:
+  Max: 500
+
+Metrics/MethodLength:
+  Max: 68
+
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/AndOr:
+  EnforcedStyle: conditionals
+
+Style/ArrayCoercion:
+  Enabled: false
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/CaseLikeIf:
+  Enabled: true
+
+Style/ClassAndModuleChildren:
+  Enabled: true
+  Exclude:
+    - 'config/routes.rb'
+
+Style/CommentAnnotation:
+  Enabled: true
+  Exclude:
+    - 'config/routes.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/ExplicitBlockArgument:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
+
+Style/GlobalStdStream:
+  Enabled: false
+
+Style/GuardClause:
+  MinBodyLength: 3
+
+Style/HashAsLastArrayItem:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashLikeCase:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
+
+Style/OptionalBooleanParameter:
+  Enabled: true
+
+Style/RedundantAssignment:
+  Enabled: true
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+Style/SingleArgumentDig:
+  Enabled: true
+
+Style/SlicingWithRange:
+  Enabled: true
+
+Style/StringConcatenation:
+  Enabled: true
+
+Rails:
+  Enabled: true
+
+Rails/ActiveRecordCallbacksOrder:
+  Enabled: true
+
+Rails/BelongsTo:
+  Enabled: false # to avoid errors, as we have false in config by default
+
+Rails/FindById:
+  Enabled: true
+
+Rails/Inquiry:
+  Enabled: true
+
+Rails/MailerName:
+  Enabled: true
+
+Rails/MatchRoute:
+  Enabled: true
+
+Rails/NegateInclude:
+  Enabled: true
+
+Rails/Pick:
+  Enabled: false
+
+Rails/Pluck:
+  Enabled: false
+
+Rails/PluckInWhere:
+  Enabled: true
+
+Rails/RenderInline:
+  Enabled: true
+
+Rails/RenderPlainText:
+  Enabled: true
+
+Rails/ShortI18n:
+  Enabled: false
+
+Rails/WhereExists:
+  Enabled: true
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: true
