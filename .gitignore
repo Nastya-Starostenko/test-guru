@@ -45,3 +45,6 @@ yarn-debug.log*
 .project
 .idea/
 *~
+
+# ignore OS files
+.DS_Store
