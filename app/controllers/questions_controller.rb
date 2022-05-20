@@ -1,20 +1,16 @@
 # frozen_string_literal: true
 
 class QuestionsController < ApplicationController
-  before_action :find_test, only: %i[index create new]
-  before_action :find_question, only: %i[show destroy]
+  before_action :find_test, only: %i[create new]
+  before_action :find_question, only: %i[show destroy edit update]
 
   rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_test_not_found
 
-  def index
-    render plain: @test.title.concat(': ', @test.questions.map(&:body).join(', '))
-  end
+  def show; end
 
-  def show
-    render html: "<h2> Question: #{@question.body} </h2>".html_safe
+  def new
+    @question = @test.questions.new
   end
-
-  def new; end
 
   def create
     @question = @test.questions.build(question_params)
@@ -26,16 +22,26 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if @question.update(question_params)
+      redirect_to @question
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @question.destroy
 
-    render plain: 'Test was deleted'
+    redirect_to test_path
   end
 
   private
 
   def find_test
-    @test = Test.find(params[:test_id])
+    @test ||= Test.find(params[:test_id])
   end
 
   def find_question
