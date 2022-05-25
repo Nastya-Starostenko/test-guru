@@ -1,0 +1,7 @@
+<h1 class="<%=get_title_class(@test_passage) %>"><%= get_title(@test_passage) %> </h1>
+
+<div><h3>You result is <%=@test_passage.result_in_percent%> %</h3></div>
+
+<div><h3>You  <%=@test_passage.correct_questions%> %</h3></div>
+
+<br><%= link_to 'All tests', tests_path %><br>
