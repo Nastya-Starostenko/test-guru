@@ -1,0 +1,15 @@
+<%= form_with url: sessions_path, local: true do |form| %>
+
+  <%= display_flash_messages %>
+  <%= render 'shared/errors', resource: @user %>
+
+  <p>
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :email %>
+  </p>
+  <p>
+    <%= form.label :password %>
+    <%= form.password_field :password, id: :password %>
+  </p>
+  <p><%= form.submit 'Log In'%> </p>
+<% end %>
