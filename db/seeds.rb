@@ -8,16 +8,16 @@
 #   movies = Movie.create!([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create!(name: 'Luke', movie: movies.first)
 
+[TestPassage, Answer, Category, Question, Test, User].map(&:destroy_all)
+
 categories = Category.create!([{ title: 'HTML' }, { title: 'Ruby' }, { title: 'JavaScript' }])
 
-users = User.create!([{ name: 'Petya Ivanov', email: 'petya.ivanov@gmail.com', role: 'user' },
-                      { name: 'Katya Lybomir', email: 'katya.lybomir@gmail.com', role: 'admin' }])
+user = User.create!(first_name: 'Petya', last_name: 'Ivanov', email: 'petya.ivanov@gmail.com', password: 'qwerty')
+admin = Admin.create!(first_name: 'Katya', last_name: 'Lybomir', email: 'katya.lybomir@gmail.com', password: 'qwerty')
 
-admin_id = users.last.id
-
-tests = Test.create!([{ title: 'HTMl selectors', level: 1, category_id: categories[0].id, author_id: admin_id },
-                      { title: 'Objects in Ruby', level: 2, category_id: categories[1].id, author_id: admin_id },
-                      { title: 'Basic js questions', level: 2, category_id: categories[2].id, author_id: admin_id }])
+tests = admin.authored_tests.create!([{ title: 'HTMl selectors', level: 1, category_id: categories[0].id },
+                                      { title: 'Objects in Ruby', level: 2, category_id: categories[1].id },
+                                      { title: 'Basic js questions', level: 2, category_id: categories[2].id }])
 
 questions = Question.create!(
   [{ body: 'Which selector uses for link?', test_id: tests[0].id },
@@ -38,4 +38,4 @@ Answer.create!(
    { body: 'NaN property dosn\'t present', question_id: questions[2].id }]
 )
 
-TestResult.create!(test_id: Test.where(level: 2).first.id, user_id: User.find_by(email: 'petya.ivanov@gmail.com').id)
+user.test_passages.create(test_id: Test.all.sample.id)

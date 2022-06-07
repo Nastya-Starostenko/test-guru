@@ -1,14 +1,11 @@
 <div>
-  <div>
-    <h1>All tests</h1><%= link_to 'Add new', new_test_path %>
-  </div><br>
   <table>
     <tr>
       <th>Title</th>
       <th>Level</th>
       <th>Category</th>
       <th>Questions</th>
-      <th colspan = '4'>Actions</th>
+      <th>Actions</th>
     </tr>
     <%= render @tests %>
   </table>
