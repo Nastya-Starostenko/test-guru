@@ -1,14 +1,14 @@
 <div>
   <div>
-    <h1>All tests</h1><%= link_to 'Add new', new_admins_test_path %>
+    <h1><%= t('tests.index.header') %></h1><%= link_to t('tests.index.add_new'), new_admins_test_path %>
   </div><br>
   <table>
     <tr>
-      <th>Title</th>
-      <th>Level</th>
-      <th>Category</th>
-      <th>Questions</th>
-      <th colspan = '4'>Actions</th>
+      <th><%=t('tests.index.title')%></th>
+      <th><%=t('tests.index.level')%></th>
+      <th><%=t('tests.index.category')%></th>
+      <th><%=t('tests.index.question')%></th>
+      <th colspan = '4'><%=t('actions.actions')%></th>
     </tr>
     <%= render @tests %>
   </table>

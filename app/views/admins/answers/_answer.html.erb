@@ -1,6 +1,6 @@
 <li>
   <%= answer.body %><br>
-  <%= link_to 'Show', admins_answer_path(answer) %> |
-  <%= link_to 'Edit', edit_admins_answer_path(answer) %> |
-  <%= link_to 'Delete', admins_answer_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to t('shared.actions.show'), admins_answer_path(answer) %> |
+  <%= link_to t('shared.actions.edit'), edit_admins_answer_path(answer) %> |
+  <%= link_to t('shared.actions.delete'), admins_answer_path, method: :delete, data: { confirm: t('shared.confirmation')} %>
 </li>

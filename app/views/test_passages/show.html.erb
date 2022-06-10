@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
-<h1>Passing the <%= @test_passage.test.title %> Test</h1>
+<h1><%= t('test_passages.show.header', test_title: @test_passage.test.title)%></h1>
 <b>
   <%= @test_passage.question_number %>. <%= @test_passage.current_question.body %>
 </b>
-<p>Total questions:  <%= @test_passage.test.questions.count %></p>
+<p><%= t('test_passages.show.total_questions', total: @test_passage.test.questions.count ) %> </p>
 <%= form_with url: test_passage_path(@test_passage), local: true, method: :put do |form| %>
   <%= form.collection_check_boxes :answer_ids, @test_passage.current_question.answers, :id, :body, include_hidden: false do |b| %>
     <p>
@@ -11,5 +11,5 @@
       <%= b.label %>
     </p>
   <% end %>
-  <p><%= form.submit 'Next' %></p>
+  <p><%= form.submit t('test_passages.show.next') %></p>
 <% end %>
