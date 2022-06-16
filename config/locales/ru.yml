@@ -1,0 +1,83 @@
+ru:
+  hello: "Hello world"
+
+  helpers:
+    submit:
+      test:
+        create: 'Создать тест'
+        update: 'Обновить тест'
+      question:
+        create: 'Создать вопрос'
+        update: 'Обновить вопрос'
+    confirm:
+      cancel: 'Отменить'
+      ok: 'Дв'
+    label:
+      test:
+        title: 'Название'
+        level: 'Уровень'
+        category_id: 'Категория'
+      question:
+        body: 'Тело вопроса'
+    select:
+      prompt: 'Пожалуйста, сделайте выбор'
+  shared:
+    errors:
+      header:
+        few: "Обнаружено %{count} ошибок"
+        many: "Обнаружено %{count} ошибок"
+        one: "Обнаружена %{count} ошибка"
+        other: "Обнаружено %{count} ошибки"
+    actions:
+      actions: 'Действия'
+      show: 'Открыть'
+      edit: 'Редактировать'
+      delete: 'Удалить'
+    confirmation: 'Вы уверены, что хотите сделать это?'
+  navigations:
+    back: 'Назад'
+  tests:
+    index:
+      header: 'Доступные тесты'
+      add_new: 'Добавить новый'
+      title: 'Название'
+      level: 'Уровень'
+      category: 'Категория'
+      question: 'Вопрос'
+    show:
+      test_title: 'Название теста:'
+      level: 'Уровень:'
+      new_question: 'Новый вопрос'
+      questions: 'Вопросы'
+    new:
+      title: 'Создать новый тест'
+    all_tests: 'Все тесты'
+    start: 'Начать'
+  questions:
+    show:
+      header: '%{title} тест'
+      answers: 'Ответы'
+      new_answer: 'Новый ответ'
+    new:
+      header: 'Создать новый вопрос для %{test_title}'
+    edit:
+      header: 'Редактировать %{test_title} вопрос'
+  test_passages:
+    result:
+      successful: "Тест %{title} успешно завершен"
+      failed: "Тест %{title} провален"
+      result: 'Ваш результат %{percent} %'
+      correct_answes: 'У Вас %{correct_answers} правильных ответов.'
+    show:
+      header: 'Прохождение теста %{test_title}'
+      total_questions: 'Всего вопросов: %{total}'
+      next: 'Дальше'
+  admin:
+    tests:
+      create:
+        success: 'RU Test was successfully created'
+      index:
+        header: 'Доступные тесты'
+  tests_mailer:
+    completed_test:
+      subject: 'Вы успешно завершили тест на TestGuru!'

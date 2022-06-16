@@ -3,6 +3,6 @@
   <td> <%= test_level(test) %></td>
   <td> <%= test.category.title %></td>
   <td> <%= test.questions.size %></td>
-  <td> <%= button_to 'Start', start_test_path(test) %></td>
+  <td> <%= button_to t('tests.start'), start_test_path(test) %></td>
   <td></td>
 </tr>

@@ -1,14 +1,14 @@
 <div>
-  <h2><strong>Test title:</strong> <%= @test.title %></h2>
-  <h3><strong>Level:</strong> <%= test_level(@test) %></h3>
-  <p> <%= link_to 'New question', new_admins_test_question_path(@test) %></p><br>
+  <h2><strong><%= t('tests.show.test_title') %></strong> <%= @test.title %></h2>
+  <h3><strong><%= t('tests.show.level') %></strong> <%= test_level(@test) %></h3>
+  <p> <%= link_to t('tests.show.new_question'), new_admins_test_question_path(@test) %></p><br>
 
-  <h3> Questions </h3>
+  <h3> <%= t('tests.show.questions') %> </h3>
 
   <ol>
     <%= render @test.questions %>
   </ol>
 </div>
 
-<br><%= link_to 'Edit', edit_admins_test_path(@test) %> |
-<%= link_to 'Back', admins_tests_path %> <br>
+<br><%= link_to t('navigations.edit'), edit_admins_test_path(@test) %> |
+<%= link_to t('navigations.back'), admins_tests_path %> <br>

@@ -1,11 +1,12 @@
+<h1><%= t('.header') %></h1>
 <div>
   <table>
     <tr>
-      <th>Title</th>
-      <th>Level</th>
-      <th>Category</th>
-      <th>Questions</th>
-      <th>Actions</th>
+      <th><%= t('tests.index.title') %></th>
+      <th><%= t('tests.index.level') %></th>
+      <th><%= t('tests.index.category') %></th>
+      <th><%= t('tests.index.question') %></th>
+      <th><%= t('shared.actions.actions') %></th>
     </tr>
     <%= render @tests %>
   </table>

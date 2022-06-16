@@ -13,5 +13,5 @@
   <b>Correct:</b>
   <%= @answer.correct %>
 </p>
-<%= link_to 'Edit', edit_admins_answer_path(@answer) %> |
-<%= link_to 'Back', admins_question_path(@answer.question) %>
+<%= link_to t('shared.actions.edit'), edit_admins_answer_path(@answer) %> |
+<%= link_to t('navigations.back'), admins_question_path(@answer.question) %>

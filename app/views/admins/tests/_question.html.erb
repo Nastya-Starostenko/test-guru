@@ -1,8 +1,0 @@
-<tr>
-  <td> <%= question.body %></td>
-  <td> <%= link_to :show, admins_question_path(question) %></td>
-  <td> <%= link_to :edit, edit_admins_question_path(question) %></td>
-
-  <td> <%= link_to :delete, admins_question_path(question), method: :delete,
-                     data: { confirm: 'Are you sure?' } %></td>
-</tr>

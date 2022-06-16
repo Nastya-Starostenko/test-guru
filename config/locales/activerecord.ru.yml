@@ -1,0 +1,18 @@
+ru:
+  activerecord:
+    models:
+      test: 'Тест'
+      question: 'Вопрос'
+      answer: 'Answer'
+    attributes:
+      test:
+        title: 'Название'
+        level: 'Уровень'
+        category_id: 'Категория'
+        author_id: 'Автор'
+      question:
+        body: 'Тело вопроса'
+        test_id: 'Тест'
+    errors:
+      messages:
+        blank: 'не может быть пустым'
