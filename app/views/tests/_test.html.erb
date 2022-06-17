@@ -3,6 +3,5 @@
   <td> <%= test_level(test) %></td>
   <td> <%= test.category.title %></td>
   <td> <%= test.questions.size %></td>
-  <td> <%= button_to t('tests.start'), start_test_path(test) %></td>
-  <td></td>
+  <td> <%= button_to t('tests.start'), start_test_path(test), class: 'btn btn-outline-primary' %></td>
 </tr>

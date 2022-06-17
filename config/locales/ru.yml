@@ -67,7 +67,7 @@ ru:
       successful: "Тест %{title} успешно завершен"
       failed: "Тест %{title} провален"
       result: 'Ваш результат %{percent} %'
-      correct_answes: 'У Вас %{correct_answers} правильных ответов.'
+      correct_answers: 'У Вас %{correct_answers} правильных ответов.'
     show:
       header: 'Прохождение теста %{test_title}'
       total_questions: 'Всего вопросов: %{total}'

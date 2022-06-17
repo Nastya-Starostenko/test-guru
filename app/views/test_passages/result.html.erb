@@ -1,8 +1,15 @@
-<h1 class="<%= @test_passage.successful? ? 'successful' : 'failed' %>_title">
-  <%= t(@test_passage.successful? ? 'test_passages.result.successful' : 'test_passages.result.failed', title: @test_passage.test.title) %> </h1>
+<div class="row justify-content-center mt-3">
 
-<div><h3><%= t('test_passages.result.result', percent: @test_passage.result_in_percent) %> </h3></div>
+  <h1 class="<%= @test_passage.successful? ? 'successful' : 'failed' %>_title">
+    <%= t(@test_passage.successful? ? 'test_passages.result.successful' : 'test_passages.result.failed', title: @test_passage.test.title) %>
+  </h1>
 
-<div><h3><%= t('.correct_answers', correct_answers: @test_passage.correct_questions) %> </h3></div>
+  <p>
+  <h3>
+    <%= t('test_passages.result.result', percent: @test_passage.result_in_percent) %>
+    <small class="text-muted"><%= t('.correct_answers', correct_answers: @test_passage.correct_questions) %> </small>
+  </h3>
+  </p>
 
-<br><%= link_to t('tests.all_tests'), tests_path %><br>
+  <br><%= link_to t('tests.all_tests'), tests_path, class: "link-dark" %><br>
+</div>
