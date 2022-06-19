@@ -3,8 +3,10 @@
   <td> <%= test_level(test) %></td>
   <td> <%= test.category.title %></td>
   <td> <%= test.questions.size %></td>
-  <td> <%= link_to t('shared.actions.show'), admins_test_path(test) %></td>
-  <td> <%= link_to t('shared.actions.edit'), edit_admins_test_path(test) %></td>
-  <td> <%= link_to t('shared.actions.delete'), admins_test_path(test), method: :delete,
-                   data: { confirm: t('shared.actions.confirmation') } %></td>
+  <td>
+  <%= link_to t('shared.actions.show'), admins_test_path(test), class: 'btn btn-outline-info' %>
+   <%= link_to t('shared.actions.edit'), edit_admins_test_path(test), class: 'btn btn-outline-primary' %>
+   <%= link_to t('shared.actions.delete'), admins_test_path(test), method: :delete,
+                   class: 'btn btn-outline-danger',
+                   data: { confirm: t('shared.confirmation') } %></td>
 </tr>

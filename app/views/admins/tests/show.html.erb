@@ -1,14 +1,22 @@
-<div>
-  <h2><strong><%= t('tests.show.test_title') %></strong> <%= @test.title %></h2>
-  <h3><strong><%= t('tests.show.level') %></strong> <%= test_level(@test) %></h3>
-  <p> <%= link_to t('tests.show.new_question'), new_admins_test_question_path(@test) %></p><br>
+<div class="row justify-content-center mt-3">
+  <div class="col">
+    <h2>
+      <%= t('tests.show.test_title') %> <%= @test.title %>
+      <small class="text-muted"> <%= t('tests.show.level') %> <%= test_level(@test) %></small>
+    </h2>
 
-  <h3> <%= t('tests.show.questions') %> </h3>
+    <p>
+      <%= link_to t('tests.show.new_question'), new_admins_test_question_path(@test), class: 'btn btn-outline-dark' %>
+    </p>
 
-  <ol>
-    <%= render @test.questions %>
-  </ol>
+    <h3> <%= t('tests.show.questions') %> </h3>
+
+    <ol class="list-group list-group-numbered">
+      <%= render @test.questions %>
+    </ol>
+
+  </div>
+  <div class="mt-2"> <%= link_to t('navigations.edit'), edit_admins_test_path(@test), class: "link-dark" %> |
+    <%= link_to t('navigations.back'), admins_tests_path, class: "link-dark" %>
+  </div>
 </div>
-
-<br><%= link_to t('navigations.edit'), edit_admins_test_path(@test) %> |
-<%= link_to t('navigations.back'), admins_tests_path %> <br>

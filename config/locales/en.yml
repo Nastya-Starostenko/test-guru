@@ -66,7 +66,7 @@ en:
       successful: "Test %{title} successful completed"
       failed: "Test %{title} failed"
       result: 'You result is %{percent} %'
-      correct_answes: 'You have %{correct_answers} correct answers.'
+      correct_answers: 'You have %{correct_answers} correct answers.'
     show:
       header: 'Passing the %{test_title} Test'
       total_questions: 'Total questions: %{total}'

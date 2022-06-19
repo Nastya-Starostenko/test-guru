@@ -40,6 +40,10 @@ end
 
 gem 'rails-i18n', '~> 7.0.3'
 
+# UI
+gem 'bootstrap', '~> 4.0.0'
+gem 'jquery-rails'
+
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '~> 3.2'
