@@ -10,6 +10,7 @@ class Question < ApplicationRecord
            dependent: :nullify
 
   has_many :answers, dependent: :destroy
+  has_many :gists, dependent: :nullify
 
   validates :body, presence: true
 end

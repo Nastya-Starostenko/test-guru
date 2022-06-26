@@ -1,6 +1,4 @@
 ru:
-  hello: "Hello world"
-
   helpers:
     submit:
       test:
@@ -72,12 +70,27 @@ ru:
       header: 'Прохождение теста %{test_title}'
       total_questions: 'Всего вопросов: %{total}'
       next: 'Дальше'
+      gist: 'Сохранить Вопрос'
+  gists:
+    create:
+      successful: "Gist успешно создан, %{link}"
+      failed: "Что-то пошло не так"
   admin:
     tests:
       create:
         success: 'RU Test was successfully created'
       index:
         header: 'Доступные тесты'
+    gists:
+      index:
+        header: 'Gists созданные пользователями'
+        question: 'Вопрос'
+        gist_url: 'Gist ссылка'
+        user: 'Пользователь'
   tests_mailer:
     completed_test:
       subject: 'Вы успешно завершили тест на TestGuru!'
+
+  services:
+    gist-question:
+      description: 'Вопрос из %{test_title} с ресурса TestGuru'

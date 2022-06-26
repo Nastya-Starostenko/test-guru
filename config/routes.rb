@@ -17,9 +17,11 @@ Rails.application.routes.draw do
     member do
       get :result
     end
+    resources :gists, only: :create, shallow: true
   end
 
   namespace :admins do
+    resources :gists, only: :index
     resources :tests do
       resources :questions, except: [:index], shallow: true do
         resources :answers, except: [:index], shallow: true

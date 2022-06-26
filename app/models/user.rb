@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :test_passages, dependent: :destroy
   has_many :tests, through: :test_passages
   has_many :authored_tests, class_name: 'Test', foreign_key: :author_id, inverse_of: :author, dependent: :nullify
+  has_many :authored_gist, class_name: 'Gist', foreign_key: :author_id, inverse_of: :author, dependent: :nullify
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
