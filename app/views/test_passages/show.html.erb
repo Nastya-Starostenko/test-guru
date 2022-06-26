@@ -1,5 +1,4 @@
 <div class="row justify-content-center mt-3">
-  <p id="notice"><%= notice %></p>
   <h1>
     <%= t('test_passages.show.header', test_title: @test_passage.test.title) %>
     <small class="text-muted"><%= t('test_passages.show.total_questions', total: @test_passage.test.questions.count) %></small>
@@ -23,6 +22,7 @@
               </p>
             <% end %>
           </div>
+          <p><%= link_to 'Gist Question', test_passage_gists_path(@test_passage), method: :post, class: 'link-primary' %></p>
           <%= form.submit t('test_passages.show.next'), class: 'btn btn-outline-primary' %></p>
         </div>
       <% end %>

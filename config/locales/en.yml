@@ -71,12 +71,27 @@ en:
       header: 'Passing the %{test_title} Test'
       total_questions: 'Total questions: %{total}'
       next: 'Next'
+      gist: 'Gist Question'
+  gists:
+    create:
+      successful: "Gist successful created, %{link}"
+      failed: "Something wrong"
   admin:
     tests:
       create:
         success: 'Test was successfully created'
       index:
         header: 'Tricky Tests'
+    gists:
+      index:
+        header: 'Gists created by user'
+        question: 'Question'
+        gist_url: 'Gist URL'
+        user: 'User'
   tests_mailer:
     completed_test:
       subject: 'You just completed the TestGuru test!'
+
+  services:
+    gist-question:
+      description: 'A question about %{test_title} from TestGuru'
