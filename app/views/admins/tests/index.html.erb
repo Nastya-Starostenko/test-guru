@@ -11,9 +11,12 @@
       <table class="table table-hover table-responsive-md">
         <thead class="table-light">
         <tr>
-          <th><%= t('tests.index.title') %></th>
-          <th><%= t('tests.index.level') %></th>
-          <th><%= t('tests.index.category') %></th>
+          <th class="sort-by-title pointer">
+            <%= t('tests.index.title') %>
+            <%= octicon 'arrow-up', class: 'caption text-success hide' %>
+            <%= octicon 'arrow-down', class: 'caption text-success hide' %>
+          </th>
+          <th class><%= t('tests.index.category') %></th>
           <th><%= t('tests.index.question') %></th>
           <th colspan='4'><%= t('actions.actions') %></th>
         </tr>
