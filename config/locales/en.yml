@@ -8,6 +8,7 @@ en:
       test:
         create: 'Create test'
         update: 'Update test'
+        inline_submit: 'Ok'
       question:
         create: 'Create question'
         update: 'Update question'

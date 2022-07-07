@@ -4,6 +4,7 @@ ru:
       test:
         create: 'Создать тест'
         update: 'Обновить тест'
+        inline_submit: 'Ok'
       question:
         create: 'Создать вопрос'
         update: 'Обновить вопрос'
