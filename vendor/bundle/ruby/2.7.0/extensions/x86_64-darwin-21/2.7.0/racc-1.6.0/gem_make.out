@@ -1,0 +1,17 @@
+current directory: /Users/anastasiia.starostenko/thinknetica/test-guru/vendor/bundle/ruby/2.7.0/gems/racc-1.6.0/ext/racc/cparse
+/Users/anastasiia.starostenko/.rvm/rubies/ruby-2.7.0/bin/ruby -I /Users/anastasiia.starostenko/.rvm/rubies/ruby-2.7.0/lib/ruby/2.7.0 -r ./siteconf20220710-97280-pgqno5.rb extconf.rb
+checking for rb_block_call()... yes
+checking for rb_ary_subseq()... yes
+creating Makefile
+
+current directory: /Users/anastasiia.starostenko/thinknetica/test-guru/vendor/bundle/ruby/2.7.0/gems/racc-1.6.0/ext/racc/cparse
+make "DESTDIR=" clean
+
+current directory: /Users/anastasiia.starostenko/thinknetica/test-guru/vendor/bundle/ruby/2.7.0/gems/racc-1.6.0/ext/racc/cparse
+make "DESTDIR="
+compiling cparse.c
+linking shared-object racc/cparse.bundle
+
+current directory: /Users/anastasiia.starostenko/thinknetica/test-guru/vendor/bundle/ruby/2.7.0/gems/racc-1.6.0/ext/racc/cparse
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 cparse.bundle ./.gem.20220710-97280-miyy0v/racc

@@ -6,8 +6,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
-gem 'pg'
 gem 'rails', '~> 6.0.4', '>= 6.0.4.7'
+gem 'pg'
+
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -56,6 +57,11 @@ group :development do
   gem 'pry', '~> 0.13.1'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # code analyzers
+  gem 'rubocop', '~> 0.89.0', require: false
+  gem 'rubocop-faker'
+  gem 'rubocop-rails', '~> 2.7.1', require: false
+  gem 'rubocop-rspec', '~> 1.43.2', require: false
 end
 
 group :test do
@@ -68,9 +74,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-
-# code analyzers
-gem 'rubocop', '~> 0.89.0', require: false
-gem 'rubocop-faker'
-gem 'rubocop-rails', '~> 2.7.1', require: false
-gem 'rubocop-rspec', '~> 1.43.2', require: false
