@@ -29,4 +29,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :contacts_form, only: %i[new create]
 end

@@ -1,7 +1,23 @@
-<div class="row position-absolute bottom-0 mb-4">
-  <p> Current year: <%= current_year %></p>
-  <p> Author: Starostenko Anastasiia </p>
-  <p> Project: <%= link_to 'Test guru', 'https://github.com/Nastya-Starostenko/test-guru' %> </p>
-  <p> Program where user can create and pass the tests. You can read about project <%= link_to 'here', '/about' %></p>
-  <p> Test project in online school <%= link_to 'Thinknetica', 'https://thinknetica.com', target: '_blank' %></p>
-</div>
+<footer class="footer">
+  <div class="container mt-3">
+
+    <div class="row text-muted">
+      <div class="col-sm">
+        <p><%= I18n.t('footer.year', current_year: current_year) %> </p>
+        <p><%= I18n.t('footer.author') %> Starostenko Anastasiia</p>
+        <p><%= I18n.t('footer.project') %>
+          <%= link_to 'Test guru', 'https://github.com/Nastya-Starostenko/test-guru' %></p>
+      </div>
+      <div class="col-sm">
+        <p><%= I18n.t('footer.about') %>
+          <%= link_to I18n.t('footer.about'), '/about' %></p>
+        <p><%= I18n.t('footer.about') %>
+          <%= I18n.t('.footer.here') %>
+          <%= link_to 'Thinknetica', 'https://thinknetica.com', target: '_blank' %></p>
+        <p><%= link_to I18n.t('footer.contact_us'), new_contacts_form_path, class: 'btn btn-outline-secondary' %></p>
+      </div>
+    </div>
+    <p></p>
+  </div>
+</footer>
+

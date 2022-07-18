@@ -22,7 +22,9 @@ tests = admin.authored_tests.create!([{ title: 'HTMl selectors', level: 1, categ
 questions = Question.create!(
   [{ body: 'Which selector uses for link?', test_id: tests[0].id },
    { body: 'What is object in Ruby?', test_id: tests[1].id },
-   { body: 'What is NaN property?', test_id: tests[2].id }]
+   { body: 'What is NaN property?', test_id: tests[2].id },
+   { body: 'Which company developed JavaScript?', test_id: tests[2].id },
+   { body: 'Which symbol is used for comments in Javascript?', test_id: tests[2].id }]
 )
 
 Answer.create!(
@@ -35,7 +37,13 @@ Answer.create!(
    { body: 'NaN property represents "Not-a-Number" value. It indicates a value which is not a legal number.',
      question_id: questions[2].id, correct: true },
    { body: 'NaN property represents null value', question_id: questions[2].id },
-   { body: 'NaN property dosn\'t present', question_id: questions[2].id }]
+   { body: 'NaN property doesn\'t present', question_id: questions[2].id },
+   { body: 'Netscape is the software company that developed JavaScript.', question_id: questions[3].id, correct: true },
+   { body: 'JetBrains is the software company that developed JavaScript.', question_id: questions[3].id },
+   { body: 'Oracle is the software company that developed JavaScript.', question_id: questions[3].id },
+   { body: 'Symbol //', question_id: questions[4].id },
+   { body: 'Symbols /* some text */', question_id: questions[4].id },
+   { body: 'All variants', question_id: questions[4].id, correct: true }]
 )
 
 user.test_passages.create(test_id: Test.all.sample.id)
