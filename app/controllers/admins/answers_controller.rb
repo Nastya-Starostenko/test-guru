@@ -21,7 +21,7 @@ module Admins
       @answer = @question.answers.new(answer_params)
 
       if @answer.save
-        redirect_to @answer
+        redirect_to admins_question_path(@answer.question), notice: I18n.t('answers.created')
       else
         render :new
       end
@@ -29,7 +29,7 @@ module Admins
 
     def update
       if @answer.update(answer_params)
-        redirect_to @answer
+        redirect_to admins_question_path(@answer.question), notice: I18n.t('answers.updated')
       else
         render :edit
       end
@@ -37,7 +37,8 @@ module Admins
 
     def destroy
       @answer.destroy
-      redirect_to @answer.question
+
+      redirect_to admins_question_path(@answer.question), notice: I18n.t('answers.destroyed')
     end
 
     private

@@ -2,5 +2,5 @@
   <%= answer.body %><br>
   <%= link_to t('shared.actions.show'), admins_answer_path(answer) %> |
   <%= link_to t('shared.actions.edit'), edit_admins_answer_path(answer) %> |
-  <%= link_to t('shared.actions.delete'), admins_answer_path, method: :delete, data: { confirm: t('shared.confirmation')} %>
+  <%= link_to t('shared.actions.delete'), admins_answer_path(answer), method: :delete, data: { confirm: t('shared.confirmation')} %>
 </li>

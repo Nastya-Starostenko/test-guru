@@ -61,6 +61,14 @@ ru:
       header: 'Создать новый вопрос для %{test_title}'
     edit:
       header: 'Редактировать %{test_title} вопрос'
+    created: 'Новый вопрос добавлен'
+    updated: 'Вопрос успешно обновлен'
+    destroyed: 'Вопрос успешно удален'
+    not_found: 'Тест не найден'
+  answers:
+    created: 'Новый ответ добавлен'
+    updated: 'Ответ успешно обновлен'
+    destroyed: 'Ответ успешно удален'
   test_passages:
     result:
       successful: "Тест %{title} успешно завершен"
@@ -91,7 +99,36 @@ ru:
   tests_mailer:
     completed_test:
       subject: 'Вы успешно завершили тест на TestGuru!'
-
+  contacts_form:
+    subject: 'Форма обратной  вязи Тест Гуру'
+    success: 'Ваша обращение было записано!'
+    failed: 'Что-то погло не такб проверьте данные'
+  footer:
+    year: 'Текущий год: %{current_year}'
+    author: 'Автор:'
+    project: 'Проект:'
+    about: 'Программа позволяет создавать и проходить тесты. Детальнее'
+    school: 'Тестовый проект в онлайн школе'
+    here: 'тут'
+    contact_us: 'Связаться с нами'
+  contact:
+    header: 'Пришлите Ваш отзыв'
+    name: 'Ваше имя'
+    name_placeholder: 'Введите ваше имя'
+    email: 'Ваша почта'
+    email_placeholder: 'Введите вашу почту'
+    message: 'Ваше сообщение'
+    message_placeholder: 'Введите ваше сообщение'
+    send: 'Отправить'
+  navigation:
+    test_management: 'Модерирование тестов'
+    gist_management: 'Созданные GIST'
+    logout: 'Выйти'
+    sign_in: 'Войти'
+    sign_up: 'Зарегестрироваься'
+    change_to: 'Переключить на'
+    admin_nav: 'TestGuru Админ Панель'
+    user_nav: 'TestGuru'
   services:
     gist-question:
       description: 'Вопрос из %{test_title} с ресурса TestGuru'

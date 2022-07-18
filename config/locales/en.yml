@@ -62,6 +62,14 @@ en:
       header: 'Create New %{test_title} Question'
     edit:
       header: 'Edit %{test_title} Question'
+    created: 'New question added'
+    updated: 'Question was updated'
+    destroyed: 'Question was destroyed'
+    not_found: 'Test not found'
+  answers:
+    created: 'New answer added'
+    updated: 'The answer was successful updated'
+    destroyed: 'The answer was successful deleted'
   test_passages:
     result:
       successful: "Test %{title} successful completed"
@@ -92,7 +100,36 @@ en:
   tests_mailer:
     completed_test:
       subject: 'You just completed the TestGuru test!'
-
+  contacts_form:
+    subject: 'Feedback form TestGuru'
+    success: 'Your feedback sent successfully!'
+    failed: 'Could not send message, please recheck your data'
+  footer:
+    year: 'Current year: %{current_year}'
+    author: 'Author:'
+    project: 'Project:'
+    about: 'Program allow user create and pass the tests. You can read about project'
+    school: 'Test project in the online school'
+    here: 'here'
+    contact_us: 'Contact us'
+  contact:
+    header: 'Send your feedback'
+    name: 'Your name'
+    name_placeholder: 'Enter your name'
+    email: 'Your email'
+    email_placeholder: 'Enter email'
+    message: 'Your message'
+    message_placeholder: 'Enter your message'
+    send: 'Send'
+  navigation:
+    test_management: 'Test management'
+    gist_management: 'Created Gist'
+    logout: 'Log out'
+    sign_in: 'Sign in'
+    sign_up: 'Sign up'
+    change_to: 'Change to'
+    admin_nav: 'TestGuru Admin Panel'
+    user_nav: 'TestGuru'
   services:
     gist-question:
       description: 'A question about %{test_title} from TestGuru'

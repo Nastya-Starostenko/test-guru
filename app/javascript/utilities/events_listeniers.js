@@ -21,15 +21,25 @@ document.addEventListener("turbolinks:load", function () {
   })
 
   let errors = document.querySelector('.resource-errors')
-  if(errors) {
+  if (errors) {
     let formInline = document.querySelector('.form-inline[data-test-id="' + errors.dataset.resourceId + '"]')
     if (formInline) new FormInline(formInline)
   }
 
   const progressBarInfo = document.querySelector('.progress-bar-info')
   const progressBar = document.querySelector('.progress')
-  if( progressBar && progressBarInfo){
+  if (progressBar && progressBarInfo) {
     new ProgressBar(progressBar, progressBarInfo)
   }
 
+  let change_location_button = document.querySelector('.change_location')
+  if (change_location_button) {
+    change_location_button.addEventListener('click', event => {
+      event.preventDefault()
+      let lang = '?lang=ru'
+      location.search = location.search.includes(lang) ? '' : lang;
+    })
+  }
 })
+
+

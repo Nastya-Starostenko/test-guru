@@ -17,7 +17,7 @@ module Admins
       @test = current_user.authored_tests.create(**test_params)
 
       if @test.save
-        redirect_to [:admins, @test]
+        redirect_to admins_tests_path
       else
         render :new
       end
@@ -27,7 +27,7 @@ module Admins
 
     def update
       if @test.update(test_params)
-        redirect_to [:admins, @test]
+        redirect_to admins_tests_path
       else
         render :edit
       end
@@ -44,7 +44,7 @@ module Admins
     def destroy
       @test.destroy
 
-      redirect_to %i[admins index]
+      redirect_to admins_tests_path
     end
 
     private

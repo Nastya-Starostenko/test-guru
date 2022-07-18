@@ -13,7 +13,7 @@ export default class ProgressBar {
     progressBar.ariaValueMin = 0
     progressBar.ariaValueMax = this.totalQuestions
     progressBar.ariaValueNow = this.currentQuestion
-    progressBar.style.width = this.totalQuestions / this.currentQuestion * 100 + '%'
+    progressBar.style.width = this.currentQuestion / this.totalQuestions * 100 +'%'
     this.progressContainer.append(progressBar)
   }
 }

@@ -15,9 +15,8 @@ module Admins
 
     def create
       @question = @test.questions.build(question_params)
-
       if @question.save
-        redirect_to @question
+        redirect_to admins_question_path(@question), notice: I18n.t('questions.created')
       else
         render :new
       end
@@ -27,7 +26,7 @@ module Admins
 
     def update
       if @question.update(question_params)
-        redirect_to @question
+        redirect_to admins_question_path(@question), notice: I18n.t('questions.updated')
       else
         render :edit
       end
@@ -36,13 +35,13 @@ module Admins
     def destroy
       @question.destroy
 
-      redirect_to test_path
+      redirect_to admins_test_path(@question.test), notice: I18n.t('questions.destroyed')
     end
 
     private
 
     def find_test
-      @test ||= Test.find(params[:test_id])
+      @test = Test.find(params[:test_id])
     end
 
     def find_question
@@ -54,7 +53,7 @@ module Admins
     end
 
     def rescue_with_test_not_found
-      render plain: 'Test not found'
+      flash.now[:error] = I18n.t('questions.not_found')
     end
   end
 end

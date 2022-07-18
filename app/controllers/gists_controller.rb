@@ -7,7 +7,7 @@ class GistsController < ApplicationController
     result = GistQuestionService.new(current_question, current_user).perform
 
     flash_options = if result.success?
-                      { notice: t('gists.create.successful', link: result.gist.url) }
+                      { notice: t('gists.create.successful', link: link_to(result.gist.hash, result.gist.url)) }
                     else
                       { notice: t('gists.create.failed') }
                     end
@@ -23,5 +23,9 @@ class GistsController < ApplicationController
 
   def current_question
     @test_passage.current_question
+  end
+
+  def link_to(name, url)
+    helpers.link_to(name, url, target: '_blank', rel: 'noopener').html_safe
   end
 end

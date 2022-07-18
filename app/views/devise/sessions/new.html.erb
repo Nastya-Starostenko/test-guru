@@ -1,6 +1,6 @@
 <div class="row justify-content-center mt-3">
   <div class="col col-md-4">
-    <h2>Enter the Guru Gates</h2>
+    <h2><%= I18n.t('devise.sessions.new.header') %></h2>
 
     <div class="card border-primary">
 
@@ -8,12 +8,12 @@
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="form-group">
 
-            <p><%= f.label :email %>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Enter email' %>
+            <p><%= f.label :email, I18n.t('devise.sessions.new.email') %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: I18n.t('devise.sessions.new.email_placeholder') %>
             </p>
 
             <p>
-              <%= f.label :password %>
+              <%= f.label :password, I18n.t('devise.sessions.new.password') %>
               <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
             </p>
 
@@ -21,12 +21,11 @@
               <div class="form-check">
                 <%= f.label :remember_me, class: 'form-check-label' do %>
                   <%= f.check_box :remember_me, class: 'form-check-input' %>
-                  Remember me
+                  <%= I18n.t('devise.sessions.new.remember_me') %>
                 <% end %>
               </div>
             <% end %>
-
-            <%= f.submit "Log in", class: 'btn btn-primary' %>
+            <%= f.submit I18n.t('devise.sessions.new.log_in'), class: 'btn btn-primary' %>
           </div>
         <% end %>
       </div>

@@ -3,7 +3,8 @@ ru:
     models:
       test: 'Тест'
       question: 'Вопрос'
-      answer: 'Answer'
+      answer: 'Ответ'
+      category: 'Категория'
     attributes:
       test:
         title: 'Название'
@@ -13,6 +14,9 @@ ru:
       question:
         body: 'Тело вопроса'
         test_id: 'Тест'
+      answer:
+        body: 'Тело ответа'
+        correct: 'Правильный'
     errors:
       messages:
         blank: 'не может быть пустым'

@@ -1,21 +1,22 @@
-<nav class='navbar navbar-light bg-light nav user'>
-
-  <%= link_to 'TestGuru', root_path, class: 'navbar-brand' %>
+<nav class="navbar navbar-light bg-light nav user <% current_user.is_a?(Admin)? 'navbar-light' : ''%>">
+  <%= link_to navigation_title, root_path, class: 'navbar-brand'  %>
 
   <span class="navbar-text">
-     <% if user_signed_in? %>
+    <% if user_signed_in? %>
       Welcome, <b class='user-email'><%= current_user.email %></b> Guru |
 
       <% if current_user.is_a?(Admin) %>
-        <%= link_to 'Test management', admins_tests_path %> |
+          <%= link_to I18n.t('navigation.test_management'), admins_tests_path %> |
+        <%= link_to I18n.t('navigation.gist_management'), admins_gists_path %> |
+
       <% end %>
 
-      <%= link_to 'Log out', destroy_user_session_path, method: :delete%>
-
+      <%= link_to I18n.t('navigation.logout'), destroy_user_session_path, method: :delete %> |
     <% else %>
-      <%= link_to 'Sign in', new_user_session_path %> |
-      <%= link_to 'Sign up', new_user_registration_path %>
-  <% end %>
+      <%= link_to I18n.t('navigation.sign_in'), new_user_session_path %> |
+      <%= link_to I18n.t('navigation.sign_up'), new_user_registration_path %> |
+    <% end %>
+    <%= link_to language_label, '#', class: 'change_location outline-primary'  %>
   </span>
 
 </nav>

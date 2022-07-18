@@ -5,7 +5,7 @@ class Test < ApplicationRecord
   belongs_to :author, class_name: 'User', inverse_of: :authored_tests
 
   has_many :questions, dependent: :destroy
-  has_many :test_passages, dependent: :nullify
+  has_many :test_passages, dependent: :destroy
   has_many :users, through: :test_passages
 
   validates :title, presence: true, uniqueness: { scope: :level }

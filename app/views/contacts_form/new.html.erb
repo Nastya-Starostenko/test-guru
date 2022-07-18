@@ -1,0 +1,28 @@
+<div class="row justify-content-center mt-3">
+  <div class="col col-md-4">
+    <h2><%= I18n.t('contact.header') %></h2>
+    <div class="card border-primary">
+      <div class="card-body">
+        <div class="container">
+          <%= form_for @contact_form, url: contacts_form_index_path do |f| %>
+            <div class="form-group">
+              <p>
+                <%= f.label :name, I18n.t('contact.name') %>
+                <%= f.text_field :name, autofocus: true, required: true, class: 'form-control', placeholder: I18n.t('contact.name_placeholder') %>
+              </p>
+              <p>
+                <%= f.label :email, I18n.t('contact.email') %>
+                <%= f.email_field :email, autofocus: true, required: true, class: 'form-control', placeholder: I18n.t('contact.email_placeholder') %>
+              </p>
+              <p>
+                <%= f.label :message, I18n.t('contact.message') %>
+                <%= f.text_area :message, autofocus: true, rows: 5, required: true, class: 'form-control', placeholder: I18n.t('contact.message_placeholder') %>
+              </p>
+              <%= f.submit I18n.t('contact.send'), class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
