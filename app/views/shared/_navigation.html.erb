@@ -8,9 +8,9 @@
       <% if current_user.is_a?(Admin) %>
           <%= link_to I18n.t('navigation.test_management'), admins_tests_path %> |
         <%= link_to I18n.t('navigation.gist_management'), admins_gists_path %> |
-
+        <%= link_to 'Badge rules', admins_badges_url %> |
       <% end %>
-
+      <%= link_to I18n.t('navigation.my_badges'), badges_path %> |
       <%= link_to I18n.t('navigation.logout'), destroy_user_session_path, method: :delete %> |
     <% else %>
       <%= link_to I18n.t('navigation.sign_in'), new_user_session_path %> |
@@ -18,5 +18,4 @@
     <% end %>
     <%= link_to language_label, '#', class: 'change_location outline-primary'  %>
   </span>
-
 </nav>

@@ -1,5 +1,5 @@
-<footer class="footer">
-  <div class="container mt-3">
+<footer class="navbar-fixed-bottom footer pt-3 mt-3">
+  <div class="container">
 
     <div class="row text-muted">
       <div class="col-sm">
@@ -9,11 +9,8 @@
           <%= link_to 'Test guru', 'https://github.com/Nastya-Starostenko/test-guru' %></p>
       </div>
       <div class="col-sm">
-        <p><%= I18n.t('footer.about') %>
-          <%= link_to I18n.t('footer.about'), '/about' %></p>
-        <p><%= I18n.t('footer.about') %>
-          <%= I18n.t('.footer.here') %>
-          <%= link_to 'Thinknetica', 'https://thinknetica.com', target: '_blank' %></p>
+        <p><%= link_to I18n.t('footer.about'), '/about' %></p>
+        <p><%= link_to 'Thinknetica', 'https://thinknetica.com', target: '_blank' %></p>
         <p><%= link_to I18n.t('footer.contact_us'), new_contacts_form_path, class: 'btn btn-outline-secondary' %></p>
       </div>
     </div>

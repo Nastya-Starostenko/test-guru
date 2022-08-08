@@ -1,0 +1,14 @@
+<tr>
+  <td colspan='5' class="align-middle">
+    <%= content_tag :span, badge.name, class: 'test-title', data: { badge_id: badge.id } %>
+  </td>
+  <td class="align-middle"> <%= badge.name %></td>
+  <td class="align-middle">
+  <%= link_to t('shared.actions.show'), admins_badge_path(badge), class: 'btn btn-outline-info' %>
+   <%= link_to t('shared.actions.edit'),
+               edit_admins_badge_path(badge),
+               class: 'btn btn-outline-primary' %>
+   <%= link_to t('shared.actions.delete'), admins_badge_path(badge), method: :delete,
+                   class: 'btn btn-outline-danger',
+                   data: { confirm: t('shared.confirmation') } %></td>
+</tr>

@@ -27,6 +27,8 @@ class TestPassage < ApplicationRecord
   end
 
   def successful?
+    return false if result_in_percent.nil?
+
     result_in_percent >= SUCCESS_RATIO
   end
 

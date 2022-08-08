@@ -2,6 +2,7 @@ import SortingTable from './sorting_table.js';
 import PasswordConfirmation from "./password_confirmation.js";
 import FormInline from "./form_inline.js";
 import ProgressBar from "./progress_bar.js";
+import DisableElements from "./disable_elements";
 
 document.addEventListener("turbolinks:load", function () {
 
@@ -40,6 +41,22 @@ document.addEventListener("turbolinks:load", function () {
       location.search = location.search.includes(lang) ? '' : lang;
     })
   }
+
+
+  const rulesTest = document.getElementById('badge_test_id')
+  let firstGroup = document.querySelector('.first-group')
+  if (rulesTest) rulesTest.addEventListener('change', () => new DisableElements(rulesTest, firstGroup))
+
+  const conditionByCount = document.querySelector('.condition-by-count')
+  if (conditionByCount) conditionByCount.querySelectorAll('input').forEach(input => {
+    let elem = input
+    elem.addEventListener('change', () => new DisableElements(elem, conditionByCount))
+    })
+
+  if (firstGroup) firstGroup.querySelectorAll('.first-group-input').forEach(input => {
+    let elem = input
+    elem.addEventListener('change', () => new DisableElements(elem, rulesTest.parentElement))
+  })
 })
 
 

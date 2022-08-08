@@ -1,13 +1,13 @@
 <div class="row justify-content-center mt-3">
 
   <div class="col">
-    <h1><%= t('tests.index.header') %></h1>
+    <h1><%= t('badges.index.header') %></h1>
 
     <p>
-      <%= link_to t('tests.index.add_new'), new_admins_test_path, class: 'btn btn-outline-dark' %>
+      <%= link_to t('tests.index.add_new'), new_admins_badge_path, class: 'btn btn-outline-dark' %>
     </p>
 
-    <%= render 'shared/errors', resource: @test %>
+    <%= render 'shared/errors', resource: @badge %>
 
 
     <div>
@@ -15,18 +15,15 @@
         <thead class="table-light">
         <tr>
           <th colspan='5' class="sort-by-title pointer">
-            <%= t('tests.index.title') %>
+            <%= t('badges.index.name') %>
             <%= octicon 'arrow-up', class: 'caption text-success hide' %>
             <%= octicon 'arrow-down', class: 'caption text-success hide' %>
           </th>
-          <th class><%= t('tests.index.level') %></th>
-          <th class><%= t('tests.index.category') %></th>
-          <th><%= t('tests.index.question') %></th>
           <th colspan='4'><%= t('actions.actions') %></th>
         </tr>
         </thead>
         <tbody class="table-group-divider">
-        <%= render @tests %>
+        <%= render @badges %>
         </tbody>
       </table>
     </div>

@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class Test < ApplicationRecord
+  TEST_LEVELS = { 0 => :easy, 1 => :elementary, 2 => :advanced, 3 => :hard }.freeze
+
   belongs_to :category
   belongs_to :author, class_name: 'User', inverse_of: :authored_tests
 
-  has_many :questions, dependent: :destroy
+  has_many :questions, dependent: :restrict_with_error
   has_many :test_passages, dependent: :destroy
   has_many :users, through: :test_passages
 
@@ -22,6 +24,10 @@ class Test < ApplicationRecord
   class << self
     def titles_by_category(category_name)
       by_category(category_name).pluck(:title)
+    end
+
+    def test_level(test_level)
+      TEST_LEVELS[test_level] || :hero
     end
   end
 end

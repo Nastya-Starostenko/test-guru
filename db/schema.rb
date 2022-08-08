@@ -10,18 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_22_191725) do
+ActiveRecord::Schema.define(version: 2022_07_28_053343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
     t.string "body", null: false
-    t.string "correct", default: "f", null: false
+    t.boolean "correct", default: false, null: false
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "badges", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "level"
+    t.string "count_of_completed_test"
+    t.boolean "all_tests", default: false
+    t.boolean "first_test", default: false
+    t.string "image_url", null: false
+    t.bigint "category_id"
+    t.bigint "test_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_badges_on_category_id"
+    t.index ["image_url"], name: "index_badges_on_image_url", unique: true
+    t.index ["name"], name: "index_badges_on_name", unique: true
+    t.index ["test_id"], name: "index_badges_on_test_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -99,7 +116,18 @@ ActiveRecord::Schema.define(version: 2022_06_22_191725) do
     t.index ["type"], name: "index_users_on_type"
   end
 
+  create_table "users_badges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "badge_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["badge_id"], name: "index_users_badges_on_badge_id"
+    t.index ["user_id"], name: "index_users_badges_on_user_id"
+  end
+
   add_foreign_key "answers", "questions"
+  add_foreign_key "badges", "categories"
+  add_foreign_key "badges", "tests"
   add_foreign_key "gists", "questions"
   add_foreign_key "gists", "users", column: "author_id"
   add_foreign_key "questions", "tests"
@@ -108,4 +136,6 @@ ActiveRecord::Schema.define(version: 2022_06_22_191725) do
   add_foreign_key "test_passages", "users"
   add_foreign_key "tests", "categories"
   add_foreign_key "tests", "users", column: "author_id"
+  add_foreign_key "users_badges", "badges"
+  add_foreign_key "users_badges", "users"
 end

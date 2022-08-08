@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       post :start
     end
   end
+  resources :badges, only: :index
 
   resources :test_passages, only: %i[show update] do
     member do
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
         resources :answers, except: [:index], shallow: true
       end
     end
+    resources :badges
   end
 
   resources :contacts_form, only: %i[new create]
