@@ -9,6 +9,13 @@ class TestPassage < ApplicationRecord
 
   before_validation :set_current_question
 
+  scope :successful, lambda { |test_passage|
+    test_passage.where(
+      'correct_questions/ :count * 100 >= :ratio', count: test.questions.count,
+                                                   ratio: SUCCESS_RATIO
+    )
+  }
+
   def set_current_question
     self.current_question = next_question
   end
@@ -27,9 +34,7 @@ class TestPassage < ApplicationRecord
   end
 
   def successful?
-    return false if result_in_percent.nil?
-
-    result_in_percent >= SUCCESS_RATIO
+    result_in_percent.to_f >= SUCCESS_RATIO
   end
 
   def result_in_percent

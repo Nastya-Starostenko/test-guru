@@ -14,13 +14,17 @@ module Admins
     end
 
     def create
-      result = ::CreateBadgeService.new(**badge_params).perform
+      result = ::CreateBadgeService.new(
+        image_url: permit_params[:image_url], kind: permit_params[:kind], **condition_params
+      ).call
 
       if result.success?
         redirect_to admins_badges_path, flash: { alert: t('admin.badge.create.success') }
       else
-        @badge = Badge.new(badge_params)
-        flash.now[:error] = result.error.message
+        @badge = Badge.new(image_url: permit_params[:image_url],
+                           kind: permit_params[:kind],
+                           conditions: condition_params)
+        flash.now[:error] = result.errors.join(', ')
         render :new
       end
     end
@@ -28,7 +32,7 @@ module Admins
     def edit; end
 
     def update
-      if @badge.update(badge_params_update)
+      if @badge.update(permit_params[:image_url])
         redirect_to admins_badges_path
       else
         render :edit
@@ -51,14 +55,14 @@ module Admins
       @badge ||= Badge.find(params[:id])
     end
 
-    def badge_params
+    def condition_params
       params.require('badge').permit(
-        :all_tests, :first_test, :level, :count_of_completed_test, :category_id, :test_id, :image_url
+        :all_tests, :first_test, :level, :count_of_test, :category_id, :test_id
       )
     end
 
-    def badge_params_update
-      params.require('badge').permit(:image_url)
+    def permit_params
+      params.require('badge').permit(:image_url, :kind)
     end
   end
 end

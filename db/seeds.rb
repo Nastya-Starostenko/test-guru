@@ -49,13 +49,20 @@ Answer.create!(
 user.test_passages.create(test_id: Test.all.sample.id)
 
 Badge.create!(
-  [{ name: 'All test(s) completed in HTML category', level: nil, count_of_completed_test: nil, all_tests: true,
-     first_test: nil, image_url: 'https://images.pexels.com/photos/11035371/pexels-photo-11035371.jpeg?auto=compress&cs=tinysrgb&w=1600',
-     category_id: Category.find_by(title: 'HTML').id, test_id: nil },
-   { name: 'Test Basic js questions completed', level: nil, count_of_completed_test: nil, all_tests: nil,
-     first_test: nil, image_url: 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png',
-     category_id: nil, test_id: Test.find_by(title: 'Basic js questions').id },
-   { name: 'First test(s) completed in Ruby category', level: nil, count_of_completed_test: nil, all_tests: nil,
-     first_test: true, image_url: 'https://images.pexels.com/photos/12486294/pexels-photo-12486294.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-     category_id: Category.find_by(title: 'Ruby').id, test_id: nil }]
+  [{ name: 'All test(s) completed in HTML category',
+     conditions: { level: nil, count_of_test: nil, all_tests: true,
+                   first_test: nil, category_id: Category.find_by(title: 'HTML').id,
+                   test_id: nil },
+     kind: :category,
+     image_url: 'https://images.pexels.com/photos/11035371/pexels-photo-11035371.jpeg?auto=compress&cs=tinysrgb&w=1600' },
+   { name: 'Test Basic js questions completed',
+     conditions: { level: nil, count_of_test: nil, all_tests: nil,
+                   first_test: nil, category_id: nil, test_id: Test.find_by(title: 'Basic js questions').id },
+     kind: :test,
+     image_url: 'https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' },
+   { name: 'First test(s) completed in Ruby category',
+     conditions: { level: nil, count_of_test: nil, all_tests: nil,
+                   first_test: true, category_id: Category.find_by(title: 'Ruby').id, test_id: nil },
+     kind: :category,
+     image_url: 'https://images.pexels.com/photos/12486294/pexels-photo-12486294.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' }]
 )

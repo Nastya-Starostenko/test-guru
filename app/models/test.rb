@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Test < ApplicationRecord
-  TEST_LEVELS = { 0 => :easy, 1 => :elementary, 2 => :advanced, 3 => :hard }.freeze
+  TEST_LEVELS = { 1 => :easy, 2 => :elementary, 3 => :advanced, 4 => :hard, 5 => :hero }.freeze
 
   belongs_to :category
   belongs_to :author, class_name: 'User', inverse_of: :authored_tests
@@ -14,9 +14,9 @@ class Test < ApplicationRecord
   validates :level, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   scope :by_level, ->(level) { where(level: level) }
-  scope :easy, -> { by_level(0..1) }
+  scope :easy, -> { by_level(1) }
   scope :medium, -> { by_level(2..4) }
-  scope :hard, -> { by_level(5..) }
+  scope :hard, -> { by_level(5) }
   scope :by_category, lambda { |category_name|
     joins(:category).where(categories: { title: category_name }).order(title: :desc)
   }

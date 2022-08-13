@@ -3,81 +3,122 @@
 class CreateBadgeService
   class InvalidInput < StandardError; end
 
-  def initialize(**kwargs)
-    @input = prepare_input(kwargs)
-    @errors = []
+  attr_reader :errors
+
+  def initialize(image_url:, kind:, **kwargs)
+    self.conditions = prepare_conditions(kwargs)
+    self.image_url = image_url
+    self.kind = kind
+    self.errors = []
   end
 
-  def perform
-    validate_input!
-    badge = create_rule
-    OpenStruct.new({ success?: true, badge: badge })
-  rescue Octokit::Error, InvalidInput, ActiveRecord::RecordInvalid => e
-    OpenStruct.new({ success?: false, error: e })
+  def call
+    self.success = false
+
+    validate!
+    create_rule
+    raise ServiceError, errors if errors.any?
+
+    self.success = true
+    self
+  rescue StandardError
+    self
+  end
+
+  def success?
+    success
   end
 
   private
 
-  def prepare_input(data)
-    input = OpenStruct.new(data)
-    input.all_tests = ActiveModel::Type::Boolean.new.cast(input.all_tests)
-    input.first_test = ActiveModel::Type::Boolean.new.cast(input.first_test)
-    input.each_pair do |key, value|
-      next if %i[all_tests first_test image_url].include?(key)
+  attr_accessor :conditions, :image_url, :kind, :success
+  attr_writer :errors
 
-      value.present? ? input[key] = value.to_i : input.delete_field(key)
+  def prepare_conditions(data)
+    conditions = OpenStruct.new
+    conditions.all_tests = ActiveModel::Type::Boolean.new.cast(data['all_tests'])
+    conditions.first_test = ActiveModel::Type::Boolean.new.cast(data['first_test'])
+    conditions.test_id = data['test_id'].to_i
+    conditions.category_id = data['category_id'].to_i
+    conditions.level = data['level'].to_i
+    conditions.count_of_test = data['count_of_test'].to_i
+    conditions.each_pair do |key, value|
+      next unless value.is_a? Integer
+
+      conditions[key] = nil if value.zero?
     end
-    input
+    conditions
   end
 
-  def validate_input!
+  def validate!
     validate_conditions
-    validate_count_of_tests
+    validate_count_conditions
+    validate_count_of_test
     validate_image_url
-    raise InvalidInput, @errors.join(', ') if @errors.any?
-  end
 
-  def validate_count_of_tests
-    return if @input.test_id.present?
-    return if [@input.count_of_completed_test, @input.all_tests, @input.first_test].map(&:present?).one?(true)
-
-    @errors.push('You should select smith one: count of completed test, all test or first test')
+    raise InvalidInput, errors if errors.any?
   end
 
   def validate_conditions
-    return if [@input.level, @input.category_id, @input.test_id].map(&:present?).one?(true)
+    return if conditions_correct?
 
-    @errors.push('You should select smith one: level, category or test')
+    errors.push('Please, check your choice, it must be fit the selected type')
+  end
+
+  def validate_count_conditions
+    return if conditions.test_id.present?
+    return if [conditions.all_tests, conditions.first_test, conditions.count_of_test].map(&:present?).one?(true)
+
+    errors.push('You should select smith one: count of completed test, all test or first test')
+  end
+
+  def validate_count_of_test
+    return if conditions.count_of_test.blank? || conditions.count_of_test > 1
+
+    errors.push('Count of tests must be more than 1')
+  end
+
+  def conditions_correct?
+    case kind.to_sym
+    when :level_and_category
+      [conditions.level, conditions.category_id].map(&:present?).all? && conditions.test_id.blank?
+    when :test
+      conditions.test_id.present? && [conditions.level, conditions.category_id].map(&:blank?).all?
+    when :level
+      conditions.level.present? && [conditions.test_id, conditions.category_id].map(&:blank?).all?
+    end
   end
 
   def validate_image_url
-    return if @input.image_url.present? && @input.image_url =~ URI::DEFAULT_PARSER.make_regexp
+    return if image_url.present? && image_url =~ URI::DEFAULT_PARSER.make_regexp
 
-    @errors.push('Url address is invalid')
+    errors.push('Url address is invalid')
   end
 
   def create_rule
-    @input.name = generate_name
-    Badge.create!(@input.to_h)
+    Badge.create!(name: generate_name,
+                  image_url: image_url,
+                  conditions: conditions.to_h,
+                  kind: kind)
   end
 
   def generate_name
     base_name = "#{count_of_completed_tests} test(s) completed in "
-    if [@input.category_id, @input.level].all?(&:present?)
-      return base_name + "#{category_name} category in #{Test.test_level(@input.level)} level"
+    if [conditions.category_id, conditions.level].all?(&:present?)
+      return base_name + "#{category_name} category in #{Test.test_level(conditions.level)} level"
     end
-    return "Test #{Test.find(@input.test_id).title} completed" if @input.test_id.present?
-    return base_name + "#{Test.test_level(@input.level)} level" if @input.level.present?
-    return base_name + "#{category_name} category" if @input.category_id.present?
+    return "Test #{Test.find(conditions.test_id).title} completed" if conditions.test_id.present?
+    return base_name + "#{Test.test_level(conditions.level)} level" if conditions.level.present?
+    return base_name + "#{category_name} category" if conditions.category_id.present?
   end
 
   def count_of_completed_tests
-    return @input.count_of_completed_test if @input.count_of_completed_test.present?
-    return 'All' if @input.all_tests.present?
-    return 'First' if @input.first_test.present?
+    return conditions.count_of_test if conditions.count_of_test.present?
+    return 'All' if conditions.all_tests.present?
+    return 'First' if conditions.first_test.present?
   end
 
   def category_name
-    Category.find(@input.category_id).title
+    Category.find(conditions.category_id).title
   end
 end

@@ -6,7 +6,7 @@
   </p>
   <p>
     <%= form.label :level %>
-    <%= form.number_field :level, id: :test_level %>
+    <%= form.select :level, options_for_select(Test::TEST_LEVELS.invert), { prompt: true}, { placeholder: 'Enter first name'} %>
   </p>
   <p>
     <%= form.label :category_id %>

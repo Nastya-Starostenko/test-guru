@@ -1,25 +1,51 @@
 # frozen_string_literal: true
 
 class AssignBadgeForUserService
+  class ServiceError < StandardError; end
+
+  attr_reader :errors
+
   def initialize(test_passage:)
-    @test_passage = test_passage
+    self.test_passage = test_passage
+    self.user = test_passage.user
+    self.errors = []
   end
 
-  def perform
-    return unless @test_passage.successful?
+  def call
+    self.success = false
 
-    find_badges
-    OpenStruct.new({ success?: true })
-  rescue Octokit::Error, InvalidInput, ActiveRecord::RecordInvalid => e
-    OpenStruct.new({ success?: false, error: e })
+    validate_variable!
+
+    user.badges << badges
+    raise ServiceError, errors.join(', ') if errors.any?
+
+    self.success = true
+  rescue StandardError
+    self
+  end
+
+  def success?
+    success
   end
 
   private
 
-  def find_badges
-    Badges::ForTestService.new(test_passage: @test_passage).perform
-    Badges::ForCategoryService.new(test_passage: @test_passage).perform
-    Badges::ForLevelService.new(test_passage: @test_passage).perform
-    Badges::ForLevelAndCategoryService.new(test_passage: @test_passage).perform
+  attr_accessor :test_passage, :user, :success
+  attr_writer :errors
+
+  def validate_variable!
+    errors.push('Test passage must be present!') if test_passage.blank?
+    errors.push('Test must be successful!') unless test_passage&.successful?
+    raise ServiceError, errors.join(', ') if errors.any?
+  end
+
+  def badges
+    Badge.kinds.keys.map do |name|
+      "Badges::FindFor#{name.to_s.camelize}Service".constantize.new(input).call&.badges
+    end.flatten.compact
+  end
+
+  def input
+    @input ||= { current_test: @test_passage.test, user: user }
   end
 end

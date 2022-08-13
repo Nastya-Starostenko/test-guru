@@ -1,58 +1,83 @@
 <%= form_with model: [:admins, @badge], local: true do |form| %>
   <%= render 'shared/errors', resource: @badge %>
-  <% disabled = @badge.persisted? ? true : false %>
+  <% disabled = true %>
+  <% badge_conditions = OpenStruct.new(@badge.conditions) %>
+
   <div class="form-group">
-
+    <% unless @badge.persisted? %>
     <div class="alert alert-info" role="alert">
-      Select conditions for rule
+    Select conditions for rule
+    </div>
+      <% end %>
+
+    <div class="form-group row">
+      <legend class="col-form-label col-sm-2 pt-0">Type</legend>
+      <div class="col-sm-10 badges-types">
+        <% Badge.kinds.each do |key, value| %>
+          <div class="form-check">
+            <%= form.radio_button :kind, key, class: "form-check-input-#{key} form-check-input first-group-input", checked: key == @badge.kind, disabled: disabled %>
+            <%= form.label value, class: "form-check-label" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-4">
+
+  <div class='conditions'>
+    <div class="form-group row">
+      <%= form.label :test_id, 'For completed test', class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.collection_select :test_id, Test.all, :id, :title, { prompt: true, selected: badge_conditions.test_id }, { class: "custom-select form-control test-field", placeholder: 'Select test', disabled: disabled } %>
+      </div>
     </div>
 
-    <div class="first-group">
-      <div class="condition-by-count">
+    <div class="form-group row">
+      <%= form.label :level, 'For completed level', class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.select :level, options_for_select(Test::TEST_LEVELS.invert, badge_conditions.level ), { prompt: true }, { class: "custom-select form-control level-field", placeholder: 'Enter first name', disabled: disabled } %>
+      </div>
+    </div>
+
+    <div class="form-group row category">
+      <%= form.label :category_id, 'For completed category', class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.collection_select :category_id, Category.all, :id, :title, { prompt: true, selected: badge_conditions.category_id }, { class: "custom-select category-field form-control", placeholder: 'Enter first name', disabled: disabled } %>
+      </div>
+    </div>
+
+
+    <div class="row count_of_test level category">
+      <legend class="col-form-label col-sm-2 pt-0">Need complete for badge</legend>
+      <div class="col-sm-10">
         <div class="form-check">
-          <%= form.check_box :all_tests, class: "form-check-input first-group-input", disabled: disabled %>
-          <%= form.label :all_tests, 'All completed tests in group', class: "form-check-label" %>
+          <%= form.radio_button :count_of_test, :all_tests, class: "form-check-input", checked: badge_conditions.all_tests, disabled: disabled %>
+          <%= form.label :all_tests, 'All tests in group', class: "form-check-label" %>
         </div>
 
         <div class="form-check">
-          <%= form.check_box :first_test, class: "form-check-input first-group-input", disabled: disabled %>
-          <%= form.label :first_test,'First completed in group', class: "form-check-label" %>
+          <%= form.radio_button :count_of_test, :first_test, class: "form-check-input", checked: badge_conditions.first_test, disabled: disabled %>
+          <%= form.label :first_test, 'First in group', class: "form-check-label" %>
         </div>
 
-        <div class="form-group mt-3">
-          <%= form.label :count_of_completed_test %>
-          <%= form.number_field :count_of_completed_test, id: :count_of_completed_test, class: 'form-control first-group-input', placeholder: 'Enter count of completed tests', disabled: disabled %>
+        <div class="form-check">
+          <%= form.radio_button :count_of_test, :count, class: "form-check-input count_of_test", checked: badge_conditions.count_of_test.present?, disabled: disabled %>
+          <%= form.number_field :count_of_test, id: :count_of_test, class: 'form-control count_of_test', value: badge_conditions.count_of_test, min: 2, placeholder: 'Enter count of completed tests', disabled: disabled %>
         </div>
       </div>
-
-      <div class="form-group">
-        <%= form.label :level %>
-        <%= form.number_field :level, id: :rule_level, class: 'form-control first-group-input', placeholder: 'Enter level number (1,2,3 etc)', disabled: disabled %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :category_id %>
-        <%= form.collection_select :category_id, Category.all, :id, :title, { prompt: true, include_blank: true }, { class: "custom-select first-group-input", placeholder: 'Enter first name', disabled: disabled } %>
-      </div>
     </div>
+  </div>
+  <hr class="my-4">
 
-    <hr class="my-4">
-
-    <div class="alert alert-info" role="alert">
-      OR select only test if you want create rule for completed specific test
-    </div>
-
-    <div class="form-group second-group">
-      <%= form.label :test_id %>
-      <%= form.collection_select :test_id, Test.all, :id, :title, { prompt: true, include_blank: true }, { class: "custom-select", placeholder: 'Select test', disabled: disabled } %>
-    </div>
-
-    <hr class="my-4">
-
-    <div class="form-group">
-      <%= form.label :image_url %>
+  <div class="form-group row">
+    <%= form.label :image_url, class: 'col-sm-2 col-form-label' %>
+    <div class="col-sm-10">
       <%= form.text_field :image_url, id: :image_url, class: 'form-control', placeholder: 'Enter image url for budge' %>
     </div>
+  </div>
+
+  <div>
     <%= form.submit 'Create', class: 'btn btn-primary', id: 'submit' %>
   </div>
 <% end %>

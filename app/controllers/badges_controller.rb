@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BadgesController < ApplicationController
-  before_action :badges, only: [:index]
+  before_action :badges
 
   def index; end
 
