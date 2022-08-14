@@ -2,10 +2,11 @@
 
 module Admins
   class BadgesController < ApplicationController
-    before_action :badges, only: [:index]
     before_action :badge, only: %i[show edit update destroy]
 
-    def index; end
+    def index
+      @badges = Badge.all
+    end
 
     def show; end
 
@@ -19,12 +20,9 @@ module Admins
       ).call
 
       if result.success?
-        redirect_to admins_badges_path, flash: { alert: t('admin.badge.create.success') }
+        redirect_to admins_badges_path, flash: { notice: t('admin.badge.create.success') }
       else
-        @badge = Badge.new(image_url: permit_params[:image_url],
-                           kind: permit_params[:kind],
-                           conditions: condition_params)
-        flash.now[:error] = result.errors.join(', ')
+        @badge = result.badge
         render :new
       end
     end
@@ -47,18 +45,12 @@ module Admins
 
     private
 
-    def badges
-      @badges = Badge.all
-    end
-
     def badge
       @badge ||= Badge.find(params[:id])
     end
 
     def condition_params
-      params.require('badge').permit(
-        :all_tests, :first_test, :level, :count_of_test, :category_id, :test_id
-      )
+      params.require('badge').permit(Badges::ConditionalStruct.attributes_name)
     end
 
     def permit_params

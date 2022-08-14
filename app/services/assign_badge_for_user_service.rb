@@ -6,14 +6,13 @@ class AssignBadgeForUserService
   attr_reader :errors
 
   def initialize(test_passage:)
-    self.test_passage = test_passage
-    self.user = test_passage.user
-    self.errors = []
+    @test_passage = test_passage
+    @user = test_passage.user
+    @errors = []
+    @success = false
   end
 
   def call
-    self.success = false
-
     validate_variable!
 
     user.badges << badges

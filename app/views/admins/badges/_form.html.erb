@@ -1,7 +1,7 @@
 <%= form_with model: [:admins, @badge], local: true do |form| %>
-  <%= render 'shared/errors', resource: @badge %>
   <% disabled = true %>
   <% badge_conditions = OpenStruct.new(@badge.conditions) %>
+  <%= render 'shared/errors', resource: @badge %>
 
   <div class="form-group">
     <% unless @badge.persisted? %>
@@ -52,12 +52,12 @@
       <legend class="col-form-label col-sm-2 pt-0">Need complete for badge</legend>
       <div class="col-sm-10">
         <div class="form-check">
-          <%= form.radio_button :count_of_test, :all_tests, class: "form-check-input", checked: badge_conditions.all_tests, disabled: disabled %>
+          <%= form.radio_button :all_tests, :true, class: "form-check-input", checked: badge_conditions.all_tests, disabled: disabled %>
           <%= form.label :all_tests, 'All tests in group', class: "form-check-label" %>
         </div>
 
         <div class="form-check">
-          <%= form.radio_button :count_of_test, :first_test, class: "form-check-input", checked: badge_conditions.first_test, disabled: disabled %>
+          <%= form.radio_button :first_test, :true, class: "form-check-input", checked: badge_conditions.first_test, disabled: disabled %>
           <%= form.label :first_test, 'First in group', class: "form-check-label" %>
         </div>
 
