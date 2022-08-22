@@ -2,8 +2,7 @@ import SortingTable from './sorting_table.js';
 import PasswordConfirmation from "./password_confirmation.js";
 import FormInline from "./form_inline.js";
 import ProgressBar from "./progress_bar.js";
-import DisableElements from "./disable_elements";
-import BadgeForm from "./badge_form";
+import BadgeForms from "./badge_forms";
 
 document.addEventListener("turbolinks:load", function () {
 
@@ -43,6 +42,11 @@ document.addEventListener("turbolinks:load", function () {
     })
   }
 
-
+  const conditions = document.querySelector('.conditions')
+  const badgeTypes = document.querySelector('.badges-types')
+  if (conditions && badgeTypes && !window.location.href.includes('edit')) {
+    const formEvents = new BadgeForms(conditions)
+    formEvents.setElementsForDisable(badgeTypes)
+    formEvents.updateRadioCount()
+  }
 })
-

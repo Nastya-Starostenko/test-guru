@@ -15,21 +15,16 @@ class AssignBadgeForUserService
   def call
     validate_variable!
 
-    user.badges << badges
-    raise ServiceError, errors.join(', ') if errors.any?
+    user.badges << earned_badges
 
-    self.success = true
-  rescue StandardError
-    self
-  end
-
-  def success?
-    success
+    OpenStruct.new({ success?: true })
+  rescue StandardError => e
+    OpenStruct.new({ success?: false, error: e })
   end
 
   private
 
-  attr_accessor :test_passage, :user, :success
+  attr_accessor :test_passage, :user
   attr_writer :errors
 
   def validate_variable!
@@ -38,7 +33,7 @@ class AssignBadgeForUserService
     raise ServiceError, errors.join(', ') if errors.any?
   end
 
-  def badges
+  def earned_badges
     Badge.kinds.keys.map do |name|
       "Badges::FindFor#{name.to_s.camelize}Service".constantize.new(input).call&.badges
     end.flatten.compact

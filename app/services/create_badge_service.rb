@@ -3,13 +3,10 @@
 class CreateBadgeService
   class InvalidInput < StandardError; end
 
-  attr_reader :badge
-
   def initialize(image_url:, kind:, **kwargs)
     @conditions = Badges::ConditionalStruct.new(kwargs)
     @image_url = image_url
     @kind = kind
-    @success = false
     @badge = Badge.new
   end
 
@@ -18,22 +15,17 @@ class CreateBadgeService
     validate!
 
     badge.save!
-    self.success = true
-    self
-  rescue StandardError
-    self
-  end
 
-  def success?
-    success
+    OpenStruct.new({ success?: true, badge: badge })
+  rescue StandardError => e
+    OpenStruct.new({ success?: false, badge: badge, error: e })
   end
 
   delegate :errors, to: :badge
 
   private
 
-  attr_accessor :conditions, :image_url, :kind, :success
-  attr_writer :badge
+  attr_accessor :conditions, :image_url, :kind, :badge
 
   def assign_attributes!
     badge.name = generate_name

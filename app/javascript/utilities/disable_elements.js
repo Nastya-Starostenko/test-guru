@@ -1,9 +1,8 @@
 import FormInline from "./form_inline";
 
 export default class DisableElements {
-  constructor(elementsForDisable, activeElement) {
-    this.elementStayActive = activeElement
-    this.elemetsForAction = [...elementsForDisable].filter(item => item != this.elementStayActive )
+  constructor(elementsForDisable) {
+    this.elemetsForAction = [...elementsForDisable]
     this.setup()
   }
 

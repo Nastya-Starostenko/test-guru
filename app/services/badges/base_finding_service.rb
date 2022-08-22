@@ -4,8 +4,6 @@ module Badges
   class BaseFindingService
     class ServiceError < StandardError; end
 
-    attr_reader :badges, :errors
-
     def initialize(current_test:, user:)
       self.current_test = current_test
       self.user = user
@@ -13,27 +11,19 @@ module Badges
     end
 
     def call
-      self.success = false
-
       validate_variable!
       find_badges!
       validate_rules!
       raise ServiceError, errors.join(', ') if errors.any?
 
-      self.success = true
-      self
+      OpenStruct.new({ success?: true , badges: badges})
     rescue StandardError
-      self
-    end
-
-    def success?
-      success
+      OpenStruct.new({ success?: false, badges: badges,error: e })
     end
 
     private
 
-    attr_accessor :current_test, :user, :success
-    attr_writer :badges, :errors
+    attr_accessor :current_test, :user, :success, :badges, :errors
 
     def validate_variable!
       errors.push('User must be present!') if user.blank?

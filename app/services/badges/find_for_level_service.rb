@@ -7,7 +7,7 @@ module Badges
     def find_badges!
       for_all_completed_test!
       first_completed_test!
-      for_count_of_completed_tests!
+      for_count_of_test!
     end
 
     def original_badges
