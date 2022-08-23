@@ -2,6 +2,7 @@
 
 class Test < ApplicationRecord
   TEST_LEVELS = { 1 => :easy, 2 => :elementary, 3 => :advanced, 4 => :hard, 5 => :hero }.freeze
+  MAX_PASSING_TIME = 120
 
   belongs_to :category
   belongs_to :author, class_name: 'User', inverse_of: :authored_tests
@@ -13,6 +14,7 @@ class Test < ApplicationRecord
   validates :title, presence: true, uniqueness: { scope: :level }
   validates :level, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :questions, length: { minimum: 1 }
+  validates :time, presence: true, numericality: { greater_than_or_equal_to: 15, less_than_or_equal_to: MAX_PASSING_TIME }
 
   scope :by_level, ->(level) { where(level: level) }
   scope :easy, -> { by_level(1) }

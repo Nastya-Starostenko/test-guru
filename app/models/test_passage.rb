@@ -43,6 +43,10 @@ class TestPassage < ApplicationRecord
     (correct_questions / questions.count.to_f * 100).round
   end
 
+  def end_date
+    created_at + test.time.minutes
+  end
+
   private
 
   def next_question

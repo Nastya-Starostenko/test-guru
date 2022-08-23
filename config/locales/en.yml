@@ -81,6 +81,7 @@ en:
       total_questions: 'Total questions: %{total}'
       next: 'Next'
       gist: 'Gist Question'
+      time_left: 'Time left:'
   gists:
     create:
       successful: "Gist successful created, %{link}"

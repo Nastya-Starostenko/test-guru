@@ -80,6 +80,7 @@ ru:
       total_questions: 'Всего вопросов: %{total}'
       next: 'Дальше'
       gist: 'Сохранить Вопрос'
+      time_left: 'Осталось времени:'
   gists:
     create:
       successful: "Gist успешно создан, %{link}"

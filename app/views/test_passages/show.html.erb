@@ -1,15 +1,24 @@
 <div class="row justify-content-center mt-3">
 
   <div class="col-md-12 nopadding">
-    <h1>
-      <%= t('test_passages.show.header', test_title: @test_passage.test.title) %>
-      <small class="text-muted"><%= t('test_passages.show.total_questions', total: @test_passage.test.questions.count) %></small>
-    </h1>
+    <div class="row" >
+      <div class="col-md-10">
+        <h1>
+          <%= t('test_passages.show.header', test_title: @test_passage.test.title) %>
+          <small class="text-muted"><%= t('test_passages.show.total_questions', total: @test_passage.test.questions.count) %></small>
+        </h1>
+      </div>
+      <div class="col-md-2 d-flex align-items-center">
+        <small class="text-muted"><%= t('test_passages.show.time_left')%></small>
+        <%= content_tag :span, '', id: 'timer', data: { start_time: @test_passage.created_at, end_time: @test_passage.end_date } %>
+      </div>
+    </div>
+
+
     <%= content_tag :div, '', class: 'hidden progress-bar-info',
                     data: { current_question: @test_passage.question_number,
                             total_questions: @test_passage.test.questions.count } %>
-
-
+    
     <div class='progress'></div>
 
     <h3 class="mt-3">
