@@ -26,7 +26,7 @@ class TestPassage < ApplicationRecord
   end
 
   def completed?
-    current_question.nil?
+    current_question.nil? || time_expired?
   end
 
   def question_number
@@ -43,6 +43,10 @@ class TestPassage < ApplicationRecord
     (correct_questions / questions.count.to_f * 100).round
   end
 
+  def end_date
+    created_at + test.time.minutes
+  end
+
   private
 
   def next_question
@@ -57,5 +61,9 @@ class TestPassage < ApplicationRecord
 
   def questions
     @questions ||= test.questions.order(:id)
+  end
+
+  def time_expired?
+    Time.zone.now >= end_date
   end
 end
