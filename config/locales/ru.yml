@@ -80,6 +80,7 @@ ru:
       total_questions: 'Всего вопросов: %{total}'
       next: 'Дальше'
       gist: 'Сохранить Вопрос'
+      time_left: 'Осталось времени:'
   gists:
     create:
       successful: "Gist успешно создан, %{link}"
@@ -96,6 +97,10 @@ ru:
         question: 'Вопрос'
         gist_url: 'Gist ссылка'
         user: 'Пользователь'
+    badge:
+      create:
+        success: 'Правило для значка успешно создано'
+        failed: 'Упс! Что-то пошло не так!'
   tests_mailer:
     completed_test:
       subject: 'Вы успешно завершили тест на TestGuru!'
@@ -129,6 +134,17 @@ ru:
     change_to: 'Переключить на'
     admin_nav: 'TestGuru Админ Панель'
     user_nav: 'TestGuru'
+    my_badges: 'Мои награды'
+  badges:
+    index:
+      header: 'Условия наград'
+      name: 'Название'
+      add_new: 'Добавить новое условие'
+    show:
+      name: 'Название'
+  user_badges:
+    index:
+      header: 'Мои награды'
   services:
     gist-question:
       description: 'Вопрос из %{test_title} с ресурса TestGuru'

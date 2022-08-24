@@ -10,18 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_22_191725) do
+ActiveRecord::Schema.define(version: 2022_08_22_134423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
     t.string "body", null: false
-    t.string "correct", default: "f", null: false
+    t.boolean "correct", default: false, null: false
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "badges", force: :cascade do |t|
+    t.string "name", null: false
+    t.json "conditions"
+    t.string "image_url", null: false
+    t.string "kind", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["image_url"], name: "index_badges_on_image_url", unique: true
+    t.index ["name"], name: "index_badges_on_name", unique: true
   end
 
   create_table "categories", force: :cascade do |t|
@@ -68,6 +79,7 @@ ActiveRecord::Schema.define(version: 2022_06_22_191725) do
     t.bigint "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "time", default: 15, null: false, comment: "Time for passing test"
     t.index ["author_id"], name: "index_tests_on_author_id"
     t.index ["category_id"], name: "index_tests_on_category_id"
     t.index ["title", "level"], name: "index_tests_on_title_and_level", unique: true
@@ -99,6 +111,15 @@ ActiveRecord::Schema.define(version: 2022_06_22_191725) do
     t.index ["type"], name: "index_users_on_type"
   end
 
+  create_table "users_badges", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "badge_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["badge_id"], name: "index_users_badges_on_badge_id"
+    t.index ["user_id"], name: "index_users_badges_on_user_id"
+  end
+
   add_foreign_key "answers", "questions"
   add_foreign_key "gists", "questions"
   add_foreign_key "gists", "users", column: "author_id"
@@ -108,4 +129,6 @@ ActiveRecord::Schema.define(version: 2022_06_22_191725) do
   add_foreign_key "test_passages", "users"
   add_foreign_key "tests", "categories"
   add_foreign_key "tests", "users", column: "author_id"
+  add_foreign_key "users_badges", "badges"
+  add_foreign_key "users_badges", "users"
 end

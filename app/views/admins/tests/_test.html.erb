@@ -4,7 +4,7 @@
 
     <%= render 'admins/tests/form_inline', test: test == @test ? @test : test %>
   </td>
-  <td class="align-middle"> <%= test_level(test) %></td>
+  <td class="align-middle"> <%= Test.test_level(test.level) %></td>
   <td class="align-middle"> <%= test.category.title %></td>
   <td class="align-middle"> <%= test.questions.size %></td>
   <td class="align-middle">

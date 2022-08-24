@@ -14,6 +14,9 @@ class User < ApplicationRecord
   has_many :authored_tests, class_name: 'Test', foreign_key: :author_id, inverse_of: :author, dependent: :nullify
   has_many :authored_gist, class_name: 'Gist', foreign_key: :author_id, inverse_of: :author, dependent: :nullify
 
+  has_many :users_badges, dependent: :destroy
+  has_many :badges, through: :users_badges
+
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   def tests_by_level(level)

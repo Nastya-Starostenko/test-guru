@@ -6,11 +6,15 @@
   </p>
   <p>
     <%= form.label :level %>
-    <%= form.number_field :level, id: :test_level %>
+    <%= form.select :level, options_for_select(Test::TEST_LEVELS.invert), { prompt: true}, { placeholder: 'Enter first name'} %>
   </p>
   <p>
     <%= form.label :category_id %>
     <%= form.collection_select :category_id, Category.all, :id, :title, prompt: true %>
+  </p>
+  <p>
+    <%= form.label :time %>
+    <%= form.number_field :time, min: 15, max: 120 %>
   </p>
   <p><%= form.submit %> </p>
 <% end %>

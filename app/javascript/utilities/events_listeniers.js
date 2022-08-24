@@ -2,6 +2,8 @@ import SortingTable from './sorting_table.js';
 import PasswordConfirmation from "./password_confirmation.js";
 import FormInline from "./form_inline.js";
 import ProgressBar from "./progress_bar.js";
+import BadgeForms from "./badge_forms";
+import Timer from "./timer";
 
 document.addEventListener("turbolinks:load", function () {
 
@@ -40,6 +42,19 @@ document.addEventListener("turbolinks:load", function () {
       location.search = location.search.includes(lang) ? '' : lang;
     })
   }
+
+  const conditions = document.querySelector('.conditions')
+  const badgeTypes = document.querySelector('.badges-types')
+  if (conditions && badgeTypes && !window.location.href.includes('edit')) {
+    const formEvents = new BadgeForms(conditions)
+    formEvents.setElementsForDisable(badgeTypes)
+    formEvents.updateRadioCount()
+  }
+
+  const timerControl = document.getElementById('timer');
+  if (timerControl) {
+    let intervalId = setInterval(function () {
+      new Timer(timerControl, intervalId)
+    }, 1000)
+  }
 })
-
-

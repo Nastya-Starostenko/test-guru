@@ -1,0 +1,26 @@
+<div class="row justify-content-center mt-3">
+
+  <div class="col album py-5 bg-light">
+    <h1><%= t('user_badges.index.header') %></h1>
+
+    <div></div>
+    <div class="row">
+
+
+    <% @badges.each do |badge| %>
+
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body">
+            <p class="card-text"><%= badge.name%></p>
+          </div>
+          <%= image_tag "#{badge.image_url }", class: 'card-img-bottom' %>
+
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+  </div>
+
+</div>

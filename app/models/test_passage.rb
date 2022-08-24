@@ -9,6 +9,13 @@ class TestPassage < ApplicationRecord
 
   before_validation :set_current_question
 
+  scope :successful, lambda { |test_passage|
+    test_passage.where(
+      'correct_questions/ :count * 100 >= :ratio', count: test.questions.count,
+                                                   ratio: SUCCESS_RATIO
+    )
+  }
+
   def set_current_question
     self.current_question = next_question
   end
@@ -19,7 +26,7 @@ class TestPassage < ApplicationRecord
   end
 
   def completed?
-    current_question.nil?
+    current_question.nil? || time_expired?
   end
 
   def question_number
@@ -27,13 +34,17 @@ class TestPassage < ApplicationRecord
   end
 
   def successful?
-    result_in_percent >= SUCCESS_RATIO
+    result_in_percent.to_f >= SUCCESS_RATIO
   end
 
   def result_in_percent
     return unless completed?
 
     (correct_questions / questions.count.to_f * 100).round
+  end
+
+  def end_date
+    created_at + test.time.minutes
   end
 
   private
@@ -50,5 +61,9 @@ class TestPassage < ApplicationRecord
 
   def questions
     @questions ||= test.questions.order(:id)
+  end
+
+  def time_expired?
+    Time.zone.now >= end_date
   end
 end

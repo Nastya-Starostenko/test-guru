@@ -2,7 +2,7 @@
   <div class="col">
     <h2>
       <%= t('tests.show.test_title') %> <%= @test.title %>
-      <small class="text-muted"> <%= t('tests.show.level') %> <%= test_level(@test) %></small>
+      <small class="text-muted"> <%= t('tests.show.level') %> <%= Test.test_level(@test.level) %></small>
     </h2>
 
     <p>

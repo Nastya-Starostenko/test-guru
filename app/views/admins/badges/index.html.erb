@@ -1,0 +1,31 @@
+<div class="row justify-content-center mt-3">
+
+  <div class="col">
+    <h1><%= t('badges.index.header') %></h1>
+
+    <p>
+      <%= link_to t('tests.index.add_new'), new_admins_badge_path, class: 'btn btn-outline-dark' %>
+    </p>
+
+    <%= render 'shared/errors', resource: @badge %>
+
+
+    <div>
+      <table class="table table-hover table-responsive-md">
+        <thead class="table-light">
+        <tr>
+          <th colspan='5' class="sort-by-title pointer">
+            <%= t('badges.index.name') %>
+            <%= octicon 'arrow-up', class: 'caption text-success hide' %>
+            <%= octicon 'arrow-down', class: 'caption text-success hide' %>
+          </th>
+          <th colspan='4'><%= t('actions.actions') %></th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <%= render @badges %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
